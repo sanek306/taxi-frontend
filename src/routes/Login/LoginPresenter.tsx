@@ -40,7 +40,7 @@ const Subtitle = styled.h2`
 `;
 
 const FakeInput = styled.div`
-  margin: 50px 0px;
+  margin: 50px 0;
   font-size: 25px;
   font-weight: 300;
 `;
@@ -83,7 +83,7 @@ const OutHomePresenter: React.FC<IProps> = () => (
                 <PhoneLogin>
                     <Subtitle>Get moving with FastTaxi</Subtitle>
                     <FakeInput>
-                        +375 <Grey>Enter your mobile number</Grey>
+                        🇧🇾 +375 <Grey>Enter your mobile number</Grey>
                     </FakeInput>
                 </PhoneLogin>
             </Link>
