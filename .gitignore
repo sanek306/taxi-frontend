@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/taxi-frontend.iml
+/.idea/vcs.xml
