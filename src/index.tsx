@@ -6,7 +6,8 @@ import client from "./apollo";
 import {ThemeProvider} from "styled-components";
 import theme from "./theme";
 import GlobalStyle from "./global-styles";
-
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,6 +16,7 @@ ReactDOM.render(
               <GlobalStyle/>
               <App/>
           </ThemeProvider>
+          <ToastContainer draggable={true} position={'bottom-center'} />
       </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
