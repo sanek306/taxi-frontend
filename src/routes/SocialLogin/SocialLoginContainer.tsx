@@ -1,14 +1,11 @@
-import React from "react";
+import React from 'react'
 
-import SocialLoginPresenter from "./SocialLoginPresenter";
-
+import SocialLoginPresenter from './SocialLoginPresenter'
 
 class SocialLoginContainer extends React.Component {
-  public render() {
-    return (
-      <SocialLoginPresenter/>
-    );
-  }
+    public render() {
+        return <SocialLoginPresenter />
+    }
 }
 
-export default SocialLoginContainer;
+export default SocialLoginContainer

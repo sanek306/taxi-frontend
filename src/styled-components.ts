@@ -1,9 +1,9 @@
-import * as styledComponents from "styled-components";
-import { ThemedStyledComponentsModule } from "styled-components";
+import * as styledComponents from 'styled-components'
+import { ThemedStyledComponentsModule } from 'styled-components'
 
 interface ThemeInterface {
-    blueColor: string;
-    greyColor: string;
+    blueColor: string
+    greyColor: string
 }
 
 const {
@@ -11,8 +11,8 @@ const {
     css,
     keyframes,
     createGlobalStyle,
-    ThemeProvider
+    ThemeProvider,
 } = styledComponents as ThemedStyledComponentsModule<ThemeInterface>;
 
-export { css, keyframes, createGlobalStyle, ThemeProvider };
-export default styled;
+export { css, keyframes, createGlobalStyle, ThemeProvider }
+export default styled
