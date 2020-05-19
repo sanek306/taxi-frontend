@@ -71,7 +71,7 @@ interface IProps extends RouteComponentProps<any> {}
 const OutHomePresenter: React.FC<IProps> = () => (
     <Container>
         <Helmet>
-            <title>Login | FastTaxi</title>
+            <title>Авторизация | FastTaxi</title>
         </Helmet>
         <Header>
             <Logo>
@@ -83,13 +83,13 @@ const OutHomePresenter: React.FC<IProps> = () => (
                 <PhoneLogin>
                     <Subtitle>Get moving with FastTaxi</Subtitle>
                     <FakeInput>
-                        🇧🇾 +375 <Grey>Enter your mobile number</Grey>
+                        🇧🇾 +375 <Grey>Введите ваш мобильный телефон</Grey>
                     </FakeInput>
                 </PhoneLogin>
             </Link>
             <Link to={"/social-login"}>
                 <SocialLogin>
-                    <SocialLink>Or connect with social</SocialLink>
+                    <SocialLink>Или пройдите авторизацию Facebook</SocialLink>
                 </SocialLogin>
             </Link>
         </Footer>

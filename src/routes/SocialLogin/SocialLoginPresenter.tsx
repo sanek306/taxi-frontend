@@ -8,11 +8,6 @@ const Container = styled.div`
     padding: 50px 20px;
 `;
 
-const Title = styled.h2`
-    font-size: 25px;
-    margin-bottom: 40px;
-`;
-
 const Link = styled.span`
     display: flex;
     align-items: center;
@@ -32,9 +27,8 @@ const BackArrowExtended = styled(BackArrow)`
 const SocialLoginPresenter: React.FC = () => (
     <Container>
         <Helmet>
-            <title>Social Login | FastTaxi</title>
+            <title>Facebook | FastTaxi</title>
         </Helmet>
-        <Title>Choose an account</Title>
         <BackArrowExtended backTo={'/'} />
         <Link>
             <Icon>
