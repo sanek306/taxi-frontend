@@ -19,7 +19,7 @@ Created by materials of Nomad Academy.
 - [x] Edit Account
 - [x] Settings
 - [x] Places
-- [ ] Add Place
+- [x] Add Place
 - [ ] Find Address
 - [ ] Challenge: Ride History
 - [ ] Challenge: Email Sign In

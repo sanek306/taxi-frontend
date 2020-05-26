@@ -14,6 +14,7 @@ interface IProps {
 class PlaceContainer extends React.Component<IProps> {
   public render() {
     const { id, fav, name, address } = this.props;
+
     return (
       <Mutation
         mutation={EDIT_PLACE}
