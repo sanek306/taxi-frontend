@@ -31,7 +31,9 @@ const HomePresenter: React.FC<IProps> = ({ isMenuOpen, toggleMenu, loading }) =>
                     zIndex: '10',
                 },
             }}
-        />
+        >
+            <></>
+        </Sidebar>
         {!loading && <Button onClick={() => toggleMenu()}>dqwd</Button>}
     </Container>
 );

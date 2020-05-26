@@ -10,14 +10,12 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 ReactDOM.render(
-    <React.StrictMode>
-        <ApolloProvider client={client}>
-            <ThemeProvider theme={theme}>
-                <GlobalStyle />
-                <App />
-            </ThemeProvider>
-            <ToastContainer draggable={true} position={'bottom-center'} />
-        </ApolloProvider>
-    </React.StrictMode>,
+    <ApolloProvider client={client}>
+        <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            <App />
+        </ThemeProvider>
+        <ToastContainer draggable={true} position={'bottom-center'} />
+    </ApolloProvider>,
     document.getElementById('root')
 );
