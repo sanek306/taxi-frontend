@@ -23,3 +23,12 @@ Created by materials of Nomad Academy.
 - [ ] Find Address
 - [ ] Challenge: Ride History
 - [ ] Challenge: Email Sign In
+
+
+Cloudinary
+login
+16itzt2.puhachou.a@pdu.by
+cloud name
+dmuckt9ce
+password
+w#3vV9LTfs$T$8,
