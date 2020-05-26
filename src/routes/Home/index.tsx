@@ -1,14 +1,2 @@
-import React from 'react';
-
-
-const R = () => {
-
-
-    return (
-        <>
-
-        </>
-    );
-};
-
-export default R;
+import HomeContainer from "./HomeContainer";
+export default HomeContainer;
