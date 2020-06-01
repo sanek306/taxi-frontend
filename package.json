@@ -15,6 +15,8 @@
     "@types/styled-components": "^5.1.0",
     "apollo": "^2.27.4",
     "apollo-boost": "^0.4.8",
+    "apollo-link-state": "^0.4.2",
+    "apollo-link-ws": "^1.0.20",
     "axios": "^0.19.2",
     "google-maps-react": "^2.0.6",
     "graphql": "14.0.2 - 14.2.0 || ^14.3.1",
@@ -23,12 +25,14 @@
     "react-dom": "^16.13.1",
     "react-facebook-login": "^4.1.1",
     "react-helmet": "^6.0.0",
+    "react-loader-spinner": "^3.1.14",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "react-sidebar": "^3.0.2",
     "react-toastify": "^6.0.4",
     "styled-components": "^5.1.0",
     "styled-reset": "^4.1.4",
+    "subscriptions-transport-ws": "^0.9.16",
     "typescript": "^3.8.3"
   },
   "scripts": {

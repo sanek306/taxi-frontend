@@ -8,6 +8,7 @@ import theme from './theme'
 import GlobalStyle from './global-styles'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 ReactDOM.render(
     <ApolloProvider client={client}>

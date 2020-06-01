@@ -26,6 +26,7 @@ class SocialLoginContainer extends React.Component<IProps, IState> {
                     token: FacebookConnect.token,
                 },
             });
+            this.props.history.push('/');
             toast.success('Вы авторизованы!');
         } else {
             toast.error(FacebookConnect.error);

@@ -26,13 +26,12 @@ class VerifyPhoneContainer extends React.Component<any, IState> {
     onCompleted = (data, logUserIn) => {
         const { CompletePhoneVerification } = data;
         if (CompletePhoneVerification.ok) {
-            if (CompletePhoneVerification.token) {
-                logUserIn({
-                    variables: {
-                        token: CompletePhoneVerification.token,
-                    },
-                });
-            }
+            logUserIn({
+                variables: {
+                    token: CompletePhoneVerification.token,
+                },
+            });
+            this.props.history.push('/');
             toast.success('Вы авторизованы!');
         } else {
             toast.error(CompletePhoneVerification.error);

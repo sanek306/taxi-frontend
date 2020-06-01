@@ -75,10 +75,10 @@ const PhoneLoginPresenter: React.FC<IProps> = ({
 }) => (
     <Container>
         <Helmet>
-            <title>Phone Login | Number</title>
+            <title>Авторизация по телефону | FastTaxi</title>
         </Helmet>
         <BackArrowExtended backTo={'/'} />
-        <Title>Enter your mobile number</Title>
+        <Title>Введите ваш номер телефона</Title>
         <CountrySelect
             value={countryCode}
             name={'countryCode'}

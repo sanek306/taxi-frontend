@@ -5,9 +5,9 @@ import { USER_PROFILE } from "../../sharedQueries";
 import MenuPresenter from "./MenuPresenter";
 import { TOGGLE_DRIVING } from "./MenuQueries";
 
-class MenuContainer extends React.Component {
+class MenuContainer extends React.Component<any> {
   public render() {
-
+    const { toggleMenu } = this.props as any;
     return (
       <Mutation
         mutation={TOGGLE_DRIVING}
@@ -40,7 +40,8 @@ class MenuContainer extends React.Component {
               <MenuPresenter
                 data={data}
                 loading={loading}
-                toggleDrivingFn={toggleDrivingFn}
+                toggleDrivingFn={(...props) => {toggleDrivingFn(props); toggleMenu()}}
+                toggleMenu={toggleMenu}
               />
             )}
           </Query>

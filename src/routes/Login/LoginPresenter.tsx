@@ -1,69 +1,72 @@
-import React from "react";
-import {Helmet} from "react-helmet";
-import { Link, RouteComponentProps } from "react-router-dom";
-import bgImage from "../../images/bg.png";
-import styled from "styled-components";
-
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { Link, RouteComponentProps } from 'react-router-dom';
+import bgImage from '../../images/bg.png';
+import styled from 'styled-components';
 
 const Container = styled.div`
-  height: 100vh;
+    height: 100vh;
 `;
 
 const Header = styled.header`
-  height: 70%;
-  background: linear-gradient(rgba(0, 153, 196, 0.5), rgba(0, 153, 196, 0.4)),
-    url(${bgImage});
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    height: 60%;
+    background: no-repeat center url(${bgImage});
+    background-size: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `;
 
 const Logo = styled.div`
-  width: 150px;
-  height: 110px;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 -14px 28px rgba(0, 0, 0, 0.22);
-  text-transform: uppercase;
-  font-weight: 500;
-  font-size: 25px;
+    animation: blink 2s linear infinite; 
+    width: 150px;
+    height: 110px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 25px;
+
+    @keyframes blink {  
+        0% { color: black; }
+        50% { color: gray; }
+        100% { color: black; } 
+    }
 `;
 
 const Title = styled.h1``;
 
 const Footer = styled.div``;
-
-const Subtitle = styled.h2`
-  font-size: 30px;
-`;
-
 const FakeInput = styled.div`
-  margin: 50px 0;
-  font-size: 25px;
-  font-weight: 300;
+    margin: 50px 0;
+    font-size: 25px;
+    font-weight: 300;
 `;
 
 const PhoneLogin = styled.div`
-  padding: 20px;
-  cursor: pointer;
+    padding: 20px;
+    cursor: pointer;
 `;
 
 const Grey = styled.span`
-  color: ${props => props.theme.greyColor};
-  margin-left: 10px;
+    color: ${(props) => props.theme.greyColor};
+    margin-left: 10px;
 `;
 
 const SocialLogin = styled.div`
-  border-top: 1px solid ${props => props.theme.greyColor};
-  padding: 30px 20px;
+    border-top: 1px solid ${(props) => props.theme.greyColor};
+    padding: 30px 20px;
 `;
 
 const SocialLink = styled.span`
-  color: ${props => props.theme.blueColor};
-  font-size: 20px;
-  cursor: pointer;
+    color: ${(props) => props.theme.blueColor};
+    font-size: 20px;
+    cursor: pointer;
 `;
 
 interface IProps extends RouteComponentProps<any> {}
@@ -79,15 +82,14 @@ const OutHomePresenter: React.FC<IProps> = () => (
             </Logo>
         </Header>
         <Footer>
-            <Link to={"/phone-login"}>
+            <Link to={'/phone-login'}>
                 <PhoneLogin>
-                    <Subtitle>Get moving with FastTaxi</Subtitle>
                     <FakeInput>
                         🇧🇾 +375 <Grey>Введите ваш мобильный телефон</Grey>
                     </FakeInput>
                 </PhoneLogin>
             </Link>
-            <Link to={"/social-login"}>
+            <Link to={'/social-login'}>
                 <SocialLogin>
                     <SocialLink>Или пройдите авторизацию Facebook</SocialLink>
                 </SocialLogin>
