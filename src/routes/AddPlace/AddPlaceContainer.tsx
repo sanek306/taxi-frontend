@@ -36,7 +36,7 @@ class AddPlaceContainer extends React.Component<IProps, IState> {
         onCompleted={data => {
           const { AddPlace } = data;
           if (AddPlace.ok) {
-            toast.success("Place added!");
+            toast.success("Место добавлено!");
             setTimeout(() => {
               history.push("/places");
             }, 2000);

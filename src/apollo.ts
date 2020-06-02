@@ -1,12 +1,10 @@
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";
 import { ApolloLink, concat, Operation, split } from "apollo-link";
-import { onError } from "apollo-link-error";
 import { HttpLink } from "apollo-link-http";
 import { withClientState } from "apollo-link-state";
 import { WebSocketLink } from "apollo-link-ws";
 import { getMainDefinition } from "apollo-utilities";
-import { toast } from "react-toastify";
 
 const isDev = process.env.NODE_ENV === "development";
 console.log(isDev);
@@ -58,17 +56,6 @@ const combinedLinks = split(
     httpLink
 );
 
-const errorLink = onError(({ graphQLErrors, networkError }) => {
-    if (graphQLErrors) {
-        graphQLErrors.map(({ message }) => {
-            toast.error(`Unexpected error: ${message}`);
-        });
-    }
-    if (networkError) {
-        toast.error(`Network error: ${networkError}`);
-    }
-});
-
 const localStateLink = withClientState({
     cache,
     defaults: {
@@ -110,7 +97,6 @@ const localStateLink = withClientState({
 const client = new ApolloClient({
     cache,
     link: ApolloLink.from([
-        errorLink,
         localStateLink,
         concat(authMiddleware, combinedLinks)
     ])

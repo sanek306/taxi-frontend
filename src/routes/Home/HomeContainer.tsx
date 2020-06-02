@@ -101,12 +101,12 @@ class HomeContainer extends React.PureComponent<IProps, IState> {
                                     distance,
                                     dropOffAddress: toAddress,
                                     dropOffLat: toLat,
-                                    dropOffLng: toLng,
+                                    dropOffLnd: toLng,
                                     duration: duration || '',
                                     pickUpAddress: fromAddress,
                                     pickUpLat: lat,
-                                    pickUpLng: lng,
-                                    price: price || 0,
+                                    pickUpLnd: lng,
+                                    price: Number(price) || 0,
                                 }}
                             >
                                 {(requestRideFn) => <Query
@@ -119,29 +119,17 @@ class HomeContainer extends React.PureComponent<IProps, IState> {
                                       }) => {
                                         const rideSubscriptionOptions: SubscribeToMoreOptions = {
                                             document: SUBSCRIBE_NEARBY_RIDES,
-                                            updateQuery: (
-                                                prev = {},
-                                                {subscriptionData}
-                                            ) => {
-                                                if (
-                                                    !subscriptionData.data
-                                                ) {
+                                            updateQuery: (prev, { subscriptionData }) => {
+                                                if (!subscriptionData.data) {
                                                     return prev;
                                                 }
-                                                return Object.assign(
-                                                    {},
-                                                    prev,
-                                                    {
-                                                        GetNearbyRide: {
-                                                            ...prev.GetNearbyRide,
-                                                            ride:
-                                                            subscriptionData
-                                                                .data
-                                                                .NearbyRideSubscription,
-                                                        },
+                                                return Object.assign({}, prev, {
+                                                    GetNearbyRide: {
+                                                        ...prev.GetNearbyRide,
+                                                        ride: subscriptionData.data.NearbyRideSubscription
                                                     }
-                                                );
-                                            },
+                                                });
+                                            }
                                         };
                                         if (isDriving) {
                                             subscribeToMore(

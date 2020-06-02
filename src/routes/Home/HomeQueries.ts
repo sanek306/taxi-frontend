@@ -25,7 +25,7 @@ export const REQUEST_RIDE = gql`
   mutation requestRide(
     $pickUpAddress: String!
     $pickUpLat: Float!
-    $pickUpLng: Float!
+    $pickUpLnd: Float!
     $dropOffAddress: String!
     $dropOffLat: Float!
     $dropOffLnd: Float!
@@ -36,7 +36,7 @@ export const REQUEST_RIDE = gql`
     RequestRide(
       pickUpAddress: $pickUpAddress
       pickUpLat: $pickUpLat
-      pickUpLnd: $pickUpLng
+      pickUpLnd: $pickUpLnd
       dropOffAddress: $dropOffAddress
       dropOffLat: $dropOffLat
       dropOffLnd: $dropOffLnd

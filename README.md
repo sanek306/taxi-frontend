@@ -20,9 +20,7 @@ Created by materials of Nomad Academy.
 - [x] Settings
 - [x] Places
 - [x] Add Place
-- [ ] Find Address
-- [ ] Challenge: Ride History
-- [ ] Challenge: Email Sign In
+- [x] Find Address
 
 
 Cloudinary

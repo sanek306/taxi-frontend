@@ -11,9 +11,10 @@ const Container = styled.div`
 `;
 
 const Image = styled.img`
-  height: 60px;
-  width: 60px;
-  border-radius: 50%;
+    height: 60px;
+    width: 50px;
+    max-height: 50px;
+    border-radius: 50%;
 `;
 
 const GridLink = styled(Link)`
