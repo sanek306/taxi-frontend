@@ -13,9 +13,9 @@ Created by materials of Nomad Academy.
 
 ### Logged In:
 
-- [ ] Home
-- [ ] Ride
-- [ ] Chat
+- [x] Home
+- [x] Ride
+- [x] Chat
 - [x] Edit Account
 - [x] Settings
 - [x] Places
