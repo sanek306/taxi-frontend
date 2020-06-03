@@ -12,6 +12,7 @@ import Places from "../../routes/Places";
 import AddPlace from "../../routes/AddPlace";
 import FindAddress from "../../routes/FindAddress";
 import Chat from "../../routes/Chat";
+import CreateUserContainer from "../../routes/CreateUser";
 
 interface IProps {
     isLoggedIn: boolean
@@ -29,6 +30,7 @@ const LoggedOutRouters: React.FC = () => (
         <Route path={"/phone-login"} exact={true} component={PhoneLogin} />
         <Route path={"/verify-phone"} exact={true} component={VerifyPhone} />
         <Route path={"/social-login"} exact={true} component={SocialLogin} />
+        <Route path={"/create-user/:phoneNumber"} exact={true} component={CreateUserContainer} />
         <Redirect from={"*"} to={"/"} />
     </Switch>
 );

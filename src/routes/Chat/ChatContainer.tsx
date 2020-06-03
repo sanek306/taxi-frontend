@@ -50,7 +50,7 @@ class ChatContainer extends React.Component<IProps, IState> {
                     }
                   } = prev;
                   const newMessageId = MessageSubscription.id;
-                  const latestMessageId = messages[messages.length - 1].id;
+                  const latestMessageId = messages[messages.length - 1]?.id;
 
                   if (newMessageId === latestMessageId) {
                     return;

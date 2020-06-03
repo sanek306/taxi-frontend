@@ -7,7 +7,6 @@ import { WebSocketLink } from "apollo-link-ws";
 import { getMainDefinition } from "apollo-utilities";
 
 const isDev = process.env.NODE_ENV === "development";
-console.log(isDev);
 
 const getToken = () => {
     const token = localStorage.getItem("jwt");

@@ -1,14 +1,14 @@
 import React from 'react';
-import Form from '../../Components/Form';
 import Header from '../../Components/Header';
 import Input from '../../Components/Input';
 import Message from '../../Components/Message';
 import styled from 'styled-components';
+import Button from "../../Components/Button";
 
 const Container = styled.div``;
 
 const Chat = styled.div`
-    height: 80vh;
+    height: 65vh;
     overflow: scroll;
     padding: 0 20px;
     display: flex;
@@ -59,14 +59,16 @@ const ChatPresenter: React.FC<IProps> = ({
                         })}
                 </Chat>
                 <InputCont>
-                    <Form submitFn={onSubmit}>
-                        <Input
-                            value={messageText}
-                            placeholder={'Введите сообщение'}
-                            onChange={onInputChange}
-                            name={'message'}
-                        />
-                    </Form>
+                    <Input
+                        value={messageText}
+                        placeholder={'Введите сообщение'}
+                        onChange={onInputChange}
+                        name={'message'}
+                    />
+                    <Button
+                        onClick={onSubmit}
+                        value={'Отправить'}
+                    />
                 </InputCont>
             </React.Fragment>
         )}

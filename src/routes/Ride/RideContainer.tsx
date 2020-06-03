@@ -26,7 +26,11 @@ class RideContainer extends React.Component<IProps> {
       <Query query={USER_PROFILE}>
         {({ data: userData }) => (
           <Query query={GET_RIDE} variables={{ rideId }}>
-            {({ data, loading, subscribeToMore }) => {
+            {({ data = {}, loading, subscribeToMore }) => {
+              const { GetRide = { ride: {} } } = data as any;
+              if (GetRide?.ride?.status === "FINISHED" || GetRide?.ride?.status === "CANCELED") {
+                window.location.href = "/";
+              }
               const subscribeOptions: SubscribeToMoreOptions = {
                 document: RIDE_SUBSCRIPTION,
                 updateQuery: (prev, { subscriptionData }) => {
@@ -38,7 +42,7 @@ class RideContainer extends React.Component<IProps> {
                       RideStatusSubscription: { status }
                     }
                   } = subscriptionData;
-                  if (status === "FINISHED") {
+                  if (status === "FINISHED" || status === "CANCELED") {
                     window.location.href = "/";
                   }
                 }

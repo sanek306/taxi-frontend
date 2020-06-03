@@ -139,10 +139,7 @@ class HomeContainer extends React.PureComponent<IProps, IState> {
                                         return (
                                             <Mutation
                                                 mutation={ACCEPT_RIDE}
-                                                onCompleted={
-                                                    this
-                                                        .handleRideAcceptance
-                                                }
+                                                update={this.handleRideAcceptance as any}
                                             >
                                                 {(acceptRideFn) => (
                                                     <HomePresenter
@@ -460,11 +457,26 @@ class HomeContainer extends React.PureComponent<IProps, IState> {
             });
         }
     };
-    public handleRideAcceptance = (data) => {
+    public handleRideAcceptance = (cache, {data}) => {
         const { history } = this.props;
         const { UpdateRideStatus } = data;
         if (UpdateRideStatus.ok) {
             history.push(`/ride/${UpdateRideStatus.rideId}`);
+        }
+        else {
+
+            const query = cache.readQuery({
+                query: GET_NEARBY_RIDE
+            });
+            if (query) {
+                const {
+                    GetNearbyRide
+                } = query;
+                GetNearbyRide.ok = false;
+                GetNearbyRide.ride = null;
+            }
+            cache.writeQuery({ query: USER_PROFILE, data: query });
+            toast.error("Пользователь отменил поездку");
         }
     };
 }
