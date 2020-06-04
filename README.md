@@ -2,6 +2,9 @@
 Frontend for my diploma of PSU.
 Created by materials of Nomad Academy.
 
+## Start:
+yarn start
+
 ## Screens:
 
 ### Logged Out:

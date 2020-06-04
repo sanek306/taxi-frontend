@@ -6,8 +6,6 @@ import { withClientState } from "apollo-link-state";
 import { WebSocketLink } from "apollo-link-ws";
 import { getMainDefinition } from "apollo-utilities";
 
-const isDev = process.env.NODE_ENV === "development";
-
 const getToken = () => {
     const token = localStorage.getItem("jwt");
     if (token) {
@@ -29,9 +27,7 @@ const authMiddleware = new ApolloLink((operation: Operation, forward: any) => {
 });
 
 const httpLink = new HttpLink({
-    uri: isDev
-        ? "http://localhost:4000/graphql"
-        : "https://nuberserver.now.sh/graphql"
+    uri: "http://localhost:4000/graphql"
 });
 
 const wsLink = new WebSocketLink({
@@ -41,9 +37,7 @@ const wsLink = new WebSocketLink({
         },
         reconnect: true
     },
-    uri: isDev
-        ? "ws://localhost:4000/subscription"
-        : "ws://nuberserver.now.sh/subscription"
+    uri: "ws://localhost:4000/subscription"
 });
 
 const combinedLinks = split(
