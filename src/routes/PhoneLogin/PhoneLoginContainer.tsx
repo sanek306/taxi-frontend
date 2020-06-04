@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 import { PHONE_SIGN_IN } from './PhoneQueries.query';
 import { Mutation } from 'react-apollo';
 import { startPhoneVerification } from 'src/types/api';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 interface IState {
     countryCode: string;
@@ -39,6 +41,24 @@ class PhoneLoginContainer extends React.Component<
         this.history = history;
     }
 
+    startPhoneVerification = () => {};
+
+    public componentDidMount() {
+        // @ts-ignore
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+            'sendCode',
+            {
+                size: 'invisible',
+                callback: this.onSubmit,
+            }
+        ) as any;
+        // @ts-ignore
+        window.recaptchaVerifier.render().then(function (widgetId) {
+            // @ts-ignore
+            window.recaptchaWidgetId = widgetId;
+        });
+    }
+
     onInputChange: React.ChangeEventHandler<
         HTMLInputElement | HTMLSelectElement
     > = (event) => {
@@ -51,8 +71,7 @@ class PhoneLoginContainer extends React.Component<
         } as any);
     };
 
-    onSubmit: OnSubmit = (event, startPhoneVerification) => {
-        event.preventDefault();
+    onSubmit = (recaptchaToken) => {
         const phone = this.getPhone();
 
         const isValid = /^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$/.test(
@@ -60,8 +79,9 @@ class PhoneLoginContainer extends React.Component<
         );
 
         if (isValid) {
-            startPhoneVerification({
-                variables: { phoneNumber: phone },
+            // @ts-ignore
+            this.startPhoneVerification({
+                variables: { phoneNumber: phone, recaptchaToken },
             });
             toast.success('Вам был выслан код на указанный номер');
         } else {
@@ -95,18 +115,17 @@ class PhoneLoginContainer extends React.Component<
         const { countryCode, phoneNumber } = this.state;
         return (
             <Mutation mutation={PHONE_SIGN_IN} onCompleted={this.onCompleted}>
-                {(startPhoneVerification, { loading }) => (
+                {(startPhoneVerification, { loading }) => {
+                    this.startPhoneVerification = startPhoneVerification;
+                    return (
                     <PhoneLoginPresenter
                         countryCode={countryCode}
                         phoneNumber={phoneNumber}
                         defaultPhoneNumber={this.defaultPhoneNumber}
                         loading={loading}
                         onInputChange={this.onInputChange}
-                        onSubmit={(e) =>
-                            this.onSubmit(e, startPhoneVerification)
-                        }
                     />
-                )}
+                )}}
             </Mutation>
         );
     }

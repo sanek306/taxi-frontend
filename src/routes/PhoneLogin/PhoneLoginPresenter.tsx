@@ -1,4 +1,4 @@
-import React, {FormEvent} from 'react'
+import React from 'react'
 import { Helmet } from 'react-helmet'
 import BackArrow from '../../Components/BackArrow'
 import Input from '../../Components/Input'
@@ -62,7 +62,6 @@ interface IProps {
     onInputChange: (
         event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
     ) => void
-    onSubmit: (e: FormEvent<HTMLFormElement>) => void
 }
 
 const PhoneLoginPresenter: React.FC<IProps> = ({
@@ -71,7 +70,6 @@ const PhoneLoginPresenter: React.FC<IProps> = ({
     defaultPhoneNumber,
     loading,
     onInputChange,
-    onSubmit,
 }) => (
     <Container>
         <Helmet>
@@ -90,14 +88,14 @@ const PhoneLoginPresenter: React.FC<IProps> = ({
                 </CountryOption>
             ))}
         </CountrySelect>
-        <Form onSubmit={event => onSubmit(event)}>
+        <Form>
             <Input
                 placeholder={defaultPhoneNumber}
                 name={'phoneNumber'}
                 value={phoneNumber}
                 onChange={onInputChange}
             />
-            <Button>
+            <Button id={'sendCode'}>
                 {loading ? (
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
