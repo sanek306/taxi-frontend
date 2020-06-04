@@ -9,6 +9,7 @@ import Ride from "../../routes/Ride";
 import EditAccount from "../../routes/EditAccount";
 import Settings from "../../routes/Settings";
 import Places from "../../routes/Places";
+import Trips from "../../routes/Trips";
 import AddPlace from "../../routes/AddPlace";
 import FindAddress from "../../routes/FindAddress";
 import Chat from "../../routes/Chat";
@@ -43,6 +44,7 @@ const LoggedInRouters: React.FC = () => (
         <Route path={"/edit-account"} exact={true} component={EditAccount} />
         <Route path={"/settings"} exact={true} component={Settings} />
         <Route path={"/places"} exact={true} component={Places} />
+        <Route path={"/trips"} exact={true} component={Trips} />
         <Route path={"/add-place"} exact={true} component={AddPlace} />
         <Route path={"/find-address"} exact={true} component={FindAddress} />
     </Switch>

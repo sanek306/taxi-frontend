@@ -3,6 +3,7 @@ Frontend for my diploma of PSU.
 Created by materials of Nomad Academy.
 
 ## Start:
+yarn install
 yarn start
 
 ## Screens:
@@ -22,6 +23,7 @@ yarn start
 - [x] Edit Account
 - [x] Settings
 - [x] Places
+- [x] Trips
 - [x] Add Place
 - [x] Find Address
 

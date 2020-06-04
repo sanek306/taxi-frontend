@@ -1,10 +1,10 @@
-import {SubscribeToMoreOptions} from 'apollo-client';
+import { SubscribeToMoreOptions } from 'apollo-client';
 import React from 'react';
-import {graphql, Mutation, Query} from 'react-apollo';
-import {RouteComponentProps} from 'react-router-dom';
-import {toast} from 'react-toastify';
-import {geoCode, reverseGeoCode} from '../../mapHelpers';
-import {USER_PROFILE} from '../../sharedQueries';
+import { graphql, Mutation, Query } from 'react-apollo';
+import { RouteComponentProps } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { geoCode, reverseGeoCode } from '../../mapHelpers';
+import { USER_PROFILE } from '../../sharedQueries';
 import HomePresenter from './HomePresenter';
 import {
     ACCEPT_RIDE,
@@ -53,8 +53,7 @@ class HomeContainer extends React.PureComponent<IProps, IState> {
         lat: 0,
         lng: 0,
         price: undefined,
-        toAddress:
-            '',
+        toAddress: '',
         toLat: 0,
         toLng: 0,
     };
@@ -68,6 +67,7 @@ class HomeContainer extends React.PureComponent<IProps, IState> {
             this.handleGeoError
         );
     }
+    places = [];
     public render() {
         const {
             isMenuOpen,
@@ -84,106 +84,151 @@ class HomeContainer extends React.PureComponent<IProps, IState> {
         } = this.state;
         return (
             <Query query={USER_PROFILE} onCompleted={this.handleProfileQuery}>
-                {({ data: dataUserProfile, loading }) => (
-                    <Query
-                        query={GET_NEARBY_DRIVERS}
-                        skip={isDriving}
-                        pollInterval={5000}
-                    >
-                        {({ data }) => {
-                            this.handleNearbyDrivers(data, dataUserProfile);
+                {({ data: dataUserProfile, loading }) => {
+                    if (dataUserProfile?.GetMyProfile?.user) {
+                        const { user: { places }} = dataUserProfile.GetMyProfile;
+                        this.places = places;
+                    }
+                    return (
+                        <Query
+                            query={GET_NEARBY_DRIVERS}
+                            skip={isDriving}
+                            pollInterval={5000}
+                        >
+                            {({ data }) => {
+                                this.handleNearbyDrivers(data, dataUserProfile);
 
-                            return (
-                            <Mutation
-                                mutation={REQUEST_RIDE}
-                                onCompleted={this.handleRideRequest}
-                                variables={{
-                                    distance,
-                                    dropOffAddress: toAddress,
-                                    dropOffLat: toLat,
-                                    dropOffLnd: toLng,
-                                    duration: duration || '',
-                                    pickUpAddress: fromAddress,
-                                    pickUpLat: lat,
-                                    pickUpLnd: lng,
-                                    price: Number(price) || 0,
-                                }}
-                            >
-                                {(requestRideFn) => <Query
-                                    query={GET_NEARBY_RIDE}
-                                    skip={!isDriving}
-                                >
-                                    {({
-                                          subscribeToMore,
-                                          data: nearbyRide,
-                                      }) => {
-                                        const rideSubscriptionOptions: SubscribeToMoreOptions = {
-                                            document: SUBSCRIBE_NEARBY_RIDES,
-                                            updateQuery: (prev, { subscriptionData }) => {
-                                                if (!subscriptionData.data) {
-                                                    return prev;
-                                                }
-                                                return Object.assign({}, prev, {
-                                                    GetNearbyRide: {
-                                                        ...prev.GetNearbyRide,
-                                                        ride: subscriptionData.data.NearbyRideSubscription
-                                                    }
-                                                });
-                                            }
-                                        };
-                                        if (isDriving) {
-                                            subscribeToMore(
-                                                rideSubscriptionOptions
-                                            );
-                                        }
-                                        return (
-                                            <Mutation
-                                                mutation={ACCEPT_RIDE}
-                                                update={this.handleRideAcceptance as any}
+                                return (
+                                    <Mutation
+                                        mutation={REQUEST_RIDE}
+                                        onCompleted={this.handleRideRequest}
+                                        variables={{
+                                            distance,
+                                            dropOffAddress: toAddress,
+                                            dropOffLat: toLat,
+                                            dropOffLnd: toLng,
+                                            duration: duration || '',
+                                            pickUpAddress: fromAddress,
+                                            pickUpLat: lat,
+                                            pickUpLnd: lng,
+                                            price: Number(price) || 0,
+                                        }}
+                                    >
+                                        {(requestRideFn) => (
+                                            <Query
+                                                query={GET_NEARBY_RIDE}
+                                                skip={!isDriving}
                                             >
-                                                {(acceptRideFn) => (
-                                                    <HomePresenter
-                                                        loading={loading}
-                                                        isMenuOpen={
-                                                            isMenuOpen
-                                                        }
-                                                        toggleMenu={
-                                                            this.toggleMenu
-                                                        }
-                                                        mapRef={this.mapRef}
-                                                        toAddress={
-                                                            toAddress
-                                                        }
-                                                        onInputChange={
-                                                            this
-                                                                .onInputChange
-                                                        }
-                                                        price={price}
-                                                        data={dataUserProfile}
-                                                        onAddressSubmit={
-                                                            this.onAddressSubmit
-                                                        }
-                                                        requestRideFn={
-                                                            requestRideFn
-                                                        }
-                                                        nearbyRide={
-                                                            nearbyRide
-                                                        }
-                                                        acceptRideFn={
-                                                            acceptRideFn
-                                                        }
-                                                        ref={this.mapRef}
-                                                        loadMap={() => this.loadMap(latitude, longitude)}
-                                                    />
-                                                )}
-                                            </Mutation>
-                                        );
-                                    }}
-                                </Query>}
-                            </Mutation>
-                        )}}
-                    </Query>
-                )}
+                                                {({
+                                                    subscribeToMore,
+                                                    data: nearbyRide,
+                                                }) => {
+                                                    const rideSubscriptionOptions: SubscribeToMoreOptions = {
+                                                        document: SUBSCRIBE_NEARBY_RIDES,
+                                                        updateQuery: (
+                                                            prev,
+                                                            { subscriptionData }
+                                                        ) => {
+                                                            if (
+                                                                !subscriptionData.data
+                                                            ) {
+                                                                return prev;
+                                                            }
+                                                            return Object.assign(
+                                                                {},
+                                                                prev,
+                                                                {
+                                                                    GetNearbyRide: {
+                                                                        ...prev.GetNearbyRide,
+                                                                        ride:
+                                                                            subscriptionData
+                                                                                .data
+                                                                                .NearbyRideSubscription,
+                                                                    },
+                                                                }
+                                                            );
+                                                        },
+                                                    };
+                                                    if (isDriving) {
+                                                        subscribeToMore(
+                                                            rideSubscriptionOptions
+                                                        );
+                                                    }
+                                                    return (
+                                                        <Mutation
+                                                            mutation={
+                                                                ACCEPT_RIDE
+                                                            }
+                                                            update={
+                                                                this
+                                                                    .handleRideAcceptance as any
+                                                            }
+                                                        >
+                                                            {(acceptRideFn) => (
+                                                                <HomePresenter
+                                                                    loading={
+                                                                        loading
+                                                                    }
+                                                                    isMenuOpen={
+                                                                        isMenuOpen
+                                                                    }
+                                                                    toggleMenu={
+                                                                        this
+                                                                            .toggleMenu
+                                                                    }
+                                                                    mapRef={
+                                                                        this
+                                                                            .mapRef
+                                                                    }
+                                                                    toAddress={
+                                                                        toAddress
+                                                                    }
+                                                                    onInputChange={
+                                                                        this
+                                                                            .onInputChange
+                                                                    }
+                                                                    price={
+                                                                        price
+                                                                    }
+                                                                    data={
+                                                                        dataUserProfile
+                                                                    }
+                                                                    onAddressSubmit={
+                                                                        this
+                                                                            .onAddressSubmit
+                                                                    }
+                                                                    requestRideFn={
+                                                                        requestRideFn
+                                                                    }
+                                                                    nearbyRide={
+                                                                        nearbyRide
+                                                                    }
+                                                                    acceptRideFn={
+                                                                        acceptRideFn
+                                                                    }
+                                                                    ref={
+                                                                        this
+                                                                            .mapRef
+                                                                    }
+                                                                    loadMap={() =>
+                                                                        this.loadMap(
+                                                                            latitude,
+                                                                            longitude
+                                                                        )
+                                                                    }
+                                                                />
+                                                            )}
+                                                        </Mutation>
+                                                    );
+                                                }}
+                                            </Query>
+                                        )}
+                                    </Mutation>
+                                );
+                            }}
+                        </Query>
+                    );
+                }}
             </Query>
         );
     }
@@ -244,7 +289,7 @@ class HomeContainer extends React.PureComponent<IProps, IState> {
         this.userMarker.setMap(this.map);
         setTimeout(() => this.renderDrivers(drivers, true), 100);
         const watchOptions: PositionOptions = {
-            enableHighAccuracy: true
+            enableHighAccuracy: true,
         };
         navigator.geolocation.watchPosition(
             this.handleGeoWatchSuccess,
@@ -286,17 +331,20 @@ class HomeContainer extends React.PureComponent<IProps, IState> {
         const { toAddress } = this.state;
         const { google } = this.props;
         const maps = google.maps;
-        const result = await geoCode(toAddress);
-
+        const place: any = this.places.find(({ name }) => name === toAddress);
+        // @ts-ignore
+        let result = place
+            ? { ...place, formatted_address: place.address } as any
+            : await geoCode(toAddress);
         if (result !== false) {
             const { lat, lng, formatted_address: formatedAddress } = result;
-          if (!result) {
-            this.setState({
-              address: ""
-            } as any);
-            toast.info("Не было найдено подходящий мест");
-            return;
-          }
+            if (!result) {
+                this.setState({
+                    address: '',
+                } as any);
+                toast.info('Не было найдено подходящий мест');
+                return;
+            }
             if (this.toMarker) {
                 this.toMarker.setMap(null);
             }
@@ -380,17 +428,19 @@ class HomeContainer extends React.PureComponent<IProps, IState> {
         const { google } = this.props;
 
         if (!init) {
-            const removedDrivers = drivers.filter((driver) => !newDrivers.find(({ id }) => id === driver.id));
+            const removedDrivers = drivers.filter(
+                (driver) => !newDrivers.find(({ id }) => id === driver.id)
+            );
             if (removedDrivers) {
-                removedDrivers.forEach(({driverMarker}) => {
+                removedDrivers.forEach(({ driverMarker }) => {
                     driverMarker.setMap(null);
-                })
+                });
             }
         }
         for (const driver of newDrivers) {
             if (driver && driver.lastLat && driver.lastLng) {
                 const exisitingDriver: any = drivers.find(
-                    ({driverMarker}: any) => {
+                    ({ driverMarker }: any) => {
                         const markerID = driverMarker.get('ID');
                         return markerID === driver.id;
                     }
@@ -405,9 +455,7 @@ class HomeContainer extends React.PureComponent<IProps, IState> {
                 } else {
                     const markerOptions = {
                         icon: {
-                            path:
-                            google.maps.SymbolPath
-                                .BACKWARD_CLOSED_ARROW,
+                            path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
                             scale: 5,
                         },
                         position: {
@@ -418,7 +466,7 @@ class HomeContainer extends React.PureComponent<IProps, IState> {
                     const newMarker: any = new google.maps.Marker(
                         markerOptions
                     );
-                    drivers.push({ ...driver, driverMarker: newMarker});
+                    drivers.push({ ...driver, driverMarker: newMarker });
                     newMarker.set('ID', driver.id);
                     newMarker.setMap(this.map);
                 }
@@ -430,9 +478,15 @@ class HomeContainer extends React.PureComponent<IProps, IState> {
             const {
                 GetNearbyDrivers: { drivers, ok },
             } = data;
-            const { GetMyProfile: { user: { id }}} = dataUserProfile;
+            const {
+                GetMyProfile: {
+                    user: { id },
+                },
+            } = dataUserProfile;
             if (ok && drivers) {
-                this.renderDrivers(drivers.filter(({ id: driverId}) => driverId !== id));
+                this.renderDrivers(
+                    drivers.filter(({ id: driverId }) => driverId !== id)
+                );
             }
         }
     };
@@ -457,26 +511,22 @@ class HomeContainer extends React.PureComponent<IProps, IState> {
             });
         }
     };
-    public handleRideAcceptance = (cache, {data}) => {
+    public handleRideAcceptance = (cache, { data }) => {
         const { history } = this.props;
         const { UpdateRideStatus } = data;
         if (UpdateRideStatus.ok) {
             history.push(`/ride/${UpdateRideStatus.rideId}`);
-        }
-        else {
-
+        } else {
             const query = cache.readQuery({
-                query: GET_NEARBY_RIDE
+                query: GET_NEARBY_RIDE,
             });
             if (query) {
-                const {
-                    GetNearbyRide
-                } = query;
+                const { GetNearbyRide } = query;
                 GetNearbyRide.ok = false;
                 GetNearbyRide.ride = null;
             }
             cache.writeQuery({ query: USER_PROFILE, data: query });
-            toast.error("Пользователь отменил поездку");
+            toast.error('Пользователь отменил поездку');
         }
     };
 }

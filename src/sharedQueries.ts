@@ -13,6 +13,12 @@ export const USER_PROFILE = gql`
         email
         fullName
         isDriving
+        places {
+          name
+          address
+          lat
+          lng
+        }
       }
     }
   }
@@ -28,6 +34,23 @@ export const GET_PLACES = gql`
         name
         address
         isFav
+      }
+    }
+  }
+`;
+
+export const GET_TRIPS = gql`
+  query getTrips {
+    GetRides {
+      ok
+      rides {
+        id
+        duration
+        status
+        price
+        distance
+        dropOffAddress
+        pickUpAddress
       }
     }
   }

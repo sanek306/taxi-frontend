@@ -36,7 +36,7 @@ const CreateUserPresenter: React.SFC<IProps> = ({
 }) => (
     <Container>
         <Helmet>
-            <title>Edit Account | Number</title>
+            <title>Создание аккаунта</title>
         </Helmet>
         <Header title={'Edit Account'} backTo={'/'} />
         <ExtendedForm submitFn={onSubmit}>
